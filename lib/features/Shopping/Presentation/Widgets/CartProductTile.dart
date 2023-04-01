@@ -15,7 +15,7 @@ class CartProductTile extends GetView<ProductsController> {
       decoration: BoxDecoration(
           boxShadow: kElevationToShadow[2],
           borderRadius: BorderRadius.circular(15),
-          color: AppColors.white),
+          color: AppColors.grey),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -26,7 +26,7 @@ class CartProductTile extends GetView<ProductsController> {
             height: double.infinity,
             padding: const EdgeInsets.all(5),
             decoration: const BoxDecoration(
-                color: AppColors.grey,
+                color: Colors.white,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15),
                     bottomLeft: Radius.circular(15))),

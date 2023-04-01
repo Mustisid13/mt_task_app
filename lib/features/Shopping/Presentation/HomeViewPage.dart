@@ -24,20 +24,22 @@ class HomeViewPage extends GetView<ProductsController> {
               icon: const Icon(Icons.shopping_cart))
         ],
       ),
-      body: Stack(
-        children: [
-          const _BodyWidget(),
-          Obx(
-            () => Visibility(
-              visible: controller.isLoading.value,
-              child: Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: AppColors.black.withOpacity(0.3),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            const _BodyWidget(),
+            Obx(
+              () => Visibility(
+                visible: controller.isLoading.value,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: AppColors.black.withOpacity(0.3),
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
@@ -51,16 +53,20 @@ class _BodyWidget extends GetView<ProductsController> {
   @override
   Widget build(BuildContext context) {
     // Gridview to list out all products
-    return Obx(() => GridView.builder(
-        controller: controller.scrollController,
-        itemCount: controller.productsList.length,
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, crossAxisSpacing: 20, mainAxisSpacing: 15),
-        itemBuilder: (context, index) {
-          return ProductTile(
-            productData: controller.productsList[index],
-          );
-        }));
+    return OrientationBuilder(builder: (context, orientation) {
+      return Obx(() => GridView.builder(
+          controller: controller.scrollController,
+          itemCount: controller.productsList.length,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: orientation == Orientation.portrait ? 2 : 3,
+              crossAxisSpacing: 20,
+              mainAxisSpacing: 15),
+          itemBuilder: (context, index) {
+            return ProductTile(
+              productData: controller.productsList[index],
+            );
+          }));
+    });
   }
 }

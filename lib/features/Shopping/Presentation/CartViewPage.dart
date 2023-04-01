@@ -14,20 +14,22 @@ class CartViewPage extends GetView<ProductsController> {
       appBar: AppBar(
         title: const Text("My Cart"),
       ),
-      body: Stack(
-        children: [
-          const _BodyWidget(),
-          Obx(
-            () => Visibility(
-              visible: controller.isLoading.value,
-              child: Center(
-                child: CircularProgressIndicator(
-                  backgroundColor: AppColors.black.withOpacity(0.3),
+      body: SafeArea(
+        child: Stack(
+          children: [
+            const _BodyWidget(),
+            Obx(
+              () => Visibility(
+                visible: controller.isLoading.value,
+                child: Center(
+                  child: CircularProgressIndicator(
+                    backgroundColor: AppColors.black.withOpacity(0.3),
+                  ),
                 ),
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

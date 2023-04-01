@@ -14,7 +14,7 @@ class ProductTile extends GetView<ProductsController> {
       decoration: BoxDecoration(
           boxShadow: kElevationToShadow[2],
           borderRadius: BorderRadius.circular(15),
-          color: AppColors.white),
+          color: AppColors.grey),
       child: Column(
         children: [
           Expanded(
@@ -24,7 +24,7 @@ class ProductTile extends GetView<ProductsController> {
                   borderRadius: BorderRadius.only(
                       topRight: Radius.circular(15),
                       topLeft: Radius.circular(15)),
-                  color: AppColors.grey,
+                  color: Colors.white,
                 ),
                 padding: const EdgeInsets.all(10),
                 width: double.infinity,
@@ -39,31 +39,36 @@ class ProductTile extends GetView<ProductsController> {
                 ),
               )),
           Flexible(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Flexible(
-                    child: Text(
-                      productData.title ?? "",
-                      maxLines: 2,
-                      style: TextStyle(
-                          color: AppColors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500),
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      flex: 4,
+                      child: Text(
+                        productData.title ?? "",
+                        maxLines: 2,
+                        style: TextStyle(
+                            color: AppColors.black,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
+                      ),
                     ),
-                  ),
-                  IconButton(
-                      padding: EdgeInsets.zero,
-                      onPressed: () async {
-                        await controller.addProductToCart(productData);
-                      },
-                      icon: const Icon(
-                        Icons.add_shopping_cart_rounded,
-                        color: AppColors.primaryColor,
-                      ))
-                ],
+                    Flexible(
+                      child: InkWell(
+                          onTap: () async {
+                            await controller.addProductToCart(productData);
+                          },
+                          child: const Icon(
+                            Icons.add_shopping_cart_rounded,
+                            color: AppColors.primaryColor,
+                          )),
+                    )
+                  ],
+                ),
               ),
             ),
           )
